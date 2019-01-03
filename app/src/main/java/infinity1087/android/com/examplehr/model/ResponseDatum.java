@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 public class ResponseDatum implements Serializable {
 
@@ -40,4 +41,7 @@ public class ResponseDatum implements Serializable {
     public void setP(P p) {
         this.p = p;
     }
+
+
+
 }

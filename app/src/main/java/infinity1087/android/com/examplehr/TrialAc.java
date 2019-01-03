@@ -20,9 +20,7 @@ public class TrialAc extends AppCompatActivity {
 //
 //-          Need to have filter on top
 //
-//-          Product search on the top
 //
-//-          Cart buttons to be top
 //
 //-          List view and pic view  on top
 //

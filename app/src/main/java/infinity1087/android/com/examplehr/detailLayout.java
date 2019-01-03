@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
@@ -27,25 +28,30 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import infinity1087.android.com.examplehr.ProductDetalModel.PriceDetails;
 import infinity1087.android.com.examplehr.adapter.RecyclerItems;
 import infinity1087.android.com.examplehr.ProductDetalModel.ResponseDetail;
 import infinity1087.android.com.examplehr.model.MainButtonImage;
+import infinity1087.android.com.examplehr.model.ResponseDatum;
 
 public class detailLayout extends AppCompatActivity implements AdapterView.OnItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView mRecyclerView;
     private RecyclerItems mAdapter;
     private List<ResponseDetail> mData;
-   // private List<PriceDetails> mprice;
+    private RecyclerView.LayoutManager layoutManager;
+    private boolean sort = true;
+    // private List<PriceDetails> mprice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_navigation_trial);
+        mRecyclerView = findViewById(R.id.recycler_view_detail);
         Intent i = getIntent();
         mData = (List<ResponseDetail>) i.getSerializableExtra("yyy");
         //mprice = (List<PriceDetails>) i.getSerializableExtra("zzz");
@@ -66,11 +72,9 @@ public class detailLayout extends AppCompatActivity implements AdapterView.OnIte
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         @SuppressLint("ResourceType") ArrayAdapter<String> dataA = new ArrayAdapter<String>(this, R.id.spinner);
-        mRecyclerView = findViewById(R.id.recycler_view_detail);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(detailLayout.this, 2);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setNestedScrollingEnabled(false);
+
+        mAdapter = new RecyclerItems(mData, mData);
+
         setUpRecyclerView(mData);
 
 
@@ -79,11 +83,24 @@ public class detailLayout extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void setUpRecyclerView(List<ResponseDetail> datumList) {
+        RecyclerView mRecyclerView = findViewById(R.id.recycler_view_detail);
 
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new RecyclerItems(datumList,datumList);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        // mAdapter = new RecyclerItems(datumList,datumList);
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+
+
+    }
+
+    private void setUpRecyclerViewList(List<ResponseDetail> datumList) {
+
+        RecyclerView mRecyclerView = findViewById(R.id.recycler_view_detail);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        //  mAdapter = new RecyclerItems(datumList,datumList);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
 
     }
 
@@ -140,7 +157,7 @@ public class detailLayout extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-       return super.onCreateOptionsMenu(menu);
+        return super.onCreateOptionsMenu(menu);
 
     }
 
@@ -152,7 +169,47 @@ public class detailLayout extends AppCompatActivity implements AdapterView.OnIte
 
             case R.id.action_price:
 
+                Collections.sort(mData, ResponseDetail.BY_PRICE);
+                mAdapter = new RecyclerItems(mData, mData);
+                mRecyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
+
                 break;
+
+            case R.id.action_name:
+
+                Collections.sort(mData, ResponseDetail.BY_NAME_Desending);
+                mAdapter = new RecyclerItems(mData, mData);
+                mRecyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
+
+                break;
+
+            case R.id.action_default:
+
+                Collections.sort(mData, ResponseDetail.BY_NAME_Alphabetacally);
+                mAdapter = new RecyclerItems(mData, mData);
+                mRecyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
+
+                break;
+
+
+            case R.id.action_filter:
+
+                if (sort) {
+                    setUpRecyclerViewList(mData);
+                    sort = false;
+                }
+                if (!sort) {
+                    setUpRecyclerView(mData);
+                    sort = true;
+                }
+
+
+                break;
+
+
         }
 
         return false;

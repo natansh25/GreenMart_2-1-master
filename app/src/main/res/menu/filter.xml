@@ -27,4 +27,9 @@
         android:orderInCategory="100"
         android:title="SortByName"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_default"
+        android:orderInCategory="100"
+        android:title="Default"
+        app:showAsAction="never" />
 </menu>
