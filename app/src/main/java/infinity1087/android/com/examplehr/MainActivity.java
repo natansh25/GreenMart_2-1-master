@@ -41,6 +41,7 @@ import infinity1087.android.com.examplehr.Services.ApiInterface;
 import infinity1087.android.com.examplehr.ViewPager.LoginViewPager;
 import infinity1087.android.com.examplehr.adapter.RecyclerAdapter;
 import infinity1087.android.com.examplehr.loginFragments.SignIn;
+import infinity1087.android.com.examplehr.loginFragments.SignUp;
 import infinity1087.android.com.examplehr.model.BannerResults;
 import infinity1087.android.com.examplehr.model.BannerTrial;
 import infinity1087.android.com.examplehr.ProductDetalModel.ResponseDetail;
@@ -48,6 +49,9 @@ import infinity1087.android.com.examplehr.ProductDetalModel.ResultList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static infinity1087.android.com.examplehr.loginFragments.SignUp.signup_email;
+import static infinity1087.android.com.examplehr.loginFragments.SignUp.signup_name;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -116,13 +120,19 @@ public class MainActivity extends AppCompatActivity
 
 
         if (SignIn.user_image != null) {
-            Picasso.get().load(SignIn.user_image).error(R.drawable.ic_launcher_background).into(img);
+            Picasso.get().load(SignIn.user_image).error(R.drawable.ic_launcher_background).placeholder(R.drawable.ic_launcher_background).into(img);
         }
         if (SignIn.user_name != null) {
             txt_name.setText(SignIn.user_name);
         }
         if (SignIn.user_mail != null) {
             txt_email.setText(SignIn.user_mail);
+        }
+        if (signup_name != null) {
+            txt_name.setText(signup_name);
+        }
+        if (signup_email != null) {
+            txt_email.setText(signup_email);
         }
         navigationView.setNavigationItemSelectedListener(this);
 

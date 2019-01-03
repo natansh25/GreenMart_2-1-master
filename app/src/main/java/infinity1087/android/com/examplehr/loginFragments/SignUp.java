@@ -48,6 +48,8 @@ public class SignUp extends Fragment implements Validator.ValidationListener {
     Button signUp;
     protected Validator validator;
     protected boolean validated;
+    public static String signup_name;
+    public static String signup_email;
 
 
     @NotEmpty(message = "Field should not be left blank !!")
@@ -99,11 +101,14 @@ public class SignUp extends Fragment implements Validator.ValidationListener {
             @Override
             public void onClick(View view) {
 
-                 //validator.validate();
+                //validator.validate();
 
                 String name1 = edt_fname.getText().toString().trim();
                 String lastn1 = edt_lname.getText().toString().trim();
                 String pass1 = edt_password.getText().toString().trim();
+
+                signup_name=name1;
+                signup_email=edt_email.getText().toString();
 
                 ApiInterface apiInterface = ApiClient.getApiClient(ApiClient.BASE_URL).create(ApiInterface.class);
                 apiInterface.savePost(name1, lastn1, pass1).enqueue

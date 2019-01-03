@@ -83,7 +83,7 @@ public class detailLayout extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void setUpRecyclerView(List<ResponseDetail> datumList) {
-        RecyclerView mRecyclerView = findViewById(R.id.recycler_view_detail);
+        //RecyclerView mRecyclerView = findViewById(R.id.recycler_view_detail);
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         // mAdapter = new RecyclerItems(datumList,datumList);
@@ -95,7 +95,7 @@ public class detailLayout extends AppCompatActivity implements AdapterView.OnIte
 
     private void setUpRecyclerViewList(List<ResponseDetail> datumList) {
 
-        RecyclerView mRecyclerView = findViewById(R.id.recycler_view_detail);
+        //RecyclerView mRecyclerView = findViewById(R.id.recycler_view_detail);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         //  mAdapter = new RecyclerItems(datumList,datumList);
