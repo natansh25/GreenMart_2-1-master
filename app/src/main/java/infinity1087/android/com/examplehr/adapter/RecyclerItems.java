@@ -9,12 +9,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -31,6 +33,7 @@ import infinity1087.android.com.examplehr.ProductDetalModel.PriceDetails;
 import infinity1087.android.com.examplehr.R;
 import infinity1087.android.com.examplehr.RoundedTransformation;
 import infinity1087.android.com.examplehr.ProductDetalModel.ResponseDetail;
+import infinity1087.android.com.examplehr.detailLayout;
 
 public class RecyclerItems extends RecyclerView.Adapter<RecyclerItems.MyViewHolder> implements Filterable {
 
@@ -41,13 +44,15 @@ public class RecyclerItems extends RecyclerView.Adapter<RecyclerItems.MyViewHold
 
     List<ResponseDetail> mDataFiltered;
     List<PriceDetails> mPricelFiltered;
+    Context mContext;
 
     Context context;
 
-    public RecyclerItems(List<ResponseDetail> data,  List<ResponseDetail> dataFiltered) {
+    public RecyclerItems(List<ResponseDetail> data, List<ResponseDetail> dataFiltered, detailLayout context) {
 
         this.mData = data;
         mDataFiltered = dataFiltered;
+        mContext=context;
 
 
 
@@ -65,19 +70,19 @@ public class RecyclerItems extends RecyclerView.Adapter<RecyclerItems.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
 
-        ResponseDetail datum = mDataFiltered.get(i);
-        PriceDetails details = datum.getPriceDetail().get(0);
+        final ResponseDetail datum = mDataFiltered.get(i);
+        final PriceDetails details = datum.getPriceDetail().get(0);
 
         int size = datum.getPriceDetail().size();
-        List<String> mList = new ArrayList<>();
+        final List<String> mList = new ArrayList<>();
 
         //mList.clear();
         for (i = 0; i < size; i++) {
 
             PriceDetails details2 = datum.getPriceDetail().get(i);
-            mList.add(String.valueOf(details2.getPP().getWeight() + " " + details2.getPU().getUnitName()) + "-" + details2.getPP().getSellCost());
+            mList.add(String.valueOf(details2.getPP().getWeight() + " " + details2.getPU().getUnitName()));
 
         }
 
@@ -94,6 +99,18 @@ public class RecyclerItems extends RecyclerView.Adapter<RecyclerItems.MyViewHold
                 .load("http://image.barodaweb.net/api/EGreen/Magic/270/Product-" + datum.getP().getProductId() + "/" + datum.getP().getProductImage() + "/100")
                 .transform(new RoundedTransformation(20, 0))
                 .into(myViewHolder.imageView);
+
+
+        myViewHolder.niceSpinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                PriceDetails details3 = datum.getPriceDetail().get(i);
+                myViewHolder.txt_price.setText(String.valueOf(details3.getPP().getBasicCost()) + "₹");
+                myViewHolder.txt_offer.setText(String.valueOf(details3.getPP().getCheckeredCost()) + "₹");
+
+
+            }
+        });
     }
 
     @Override
@@ -154,6 +171,8 @@ public class RecyclerItems extends RecyclerView.Adapter<RecyclerItems.MyViewHold
             txt_price = itemView.findViewById(R.id.txt_detail_amount);
             txt_offer = itemView.findViewById(R.id.txt_offer);
             niceSpinner = itemView.findViewById(R.id.spinner);
+
+
 
         }
     }

@@ -73,7 +73,7 @@ public class detailLayout extends AppCompatActivity implements AdapterView.OnIte
 
         @SuppressLint("ResourceType") ArrayAdapter<String> dataA = new ArrayAdapter<String>(this, R.id.spinner);
 
-        mAdapter = new RecyclerItems(mData, mData);
+        mAdapter = new RecyclerItems(mData, mData,this);
 
         setUpRecyclerView(mData);
 
@@ -170,7 +170,7 @@ public class detailLayout extends AppCompatActivity implements AdapterView.OnIte
             case R.id.action_price:
 
                 Collections.sort(mData, ResponseDetail.BY_PRICE);
-                mAdapter = new RecyclerItems(mData, mData);
+                mAdapter = new RecyclerItems(mData, mData,this);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
 
@@ -179,7 +179,7 @@ public class detailLayout extends AppCompatActivity implements AdapterView.OnIte
             case R.id.action_name:
 
                 Collections.sort(mData, ResponseDetail.BY_NAME_Desending);
-                mAdapter = new RecyclerItems(mData, mData);
+                mAdapter = new RecyclerItems(mData, mData,this);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
 
@@ -188,7 +188,7 @@ public class detailLayout extends AppCompatActivity implements AdapterView.OnIte
             case R.id.action_default:
 
                 Collections.sort(mData, ResponseDetail.BY_NAME_Alphabetacally);
-                mAdapter = new RecyclerItems(mData, mData);
+                mAdapter = new RecyclerItems(mData, mData,this);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
 
