@@ -78,6 +78,9 @@ public class SignIn extends Fragment implements View.OnClickListener, GoogleApiC
     protected Validator validator;
     protected boolean validated;
     final SignIn context = this;
+    public static  String fb_username;
+    public static String fb_email;
+    public static String fb_image_url;
 
     public SignIn() {
 
@@ -185,11 +188,13 @@ public class SignIn extends Fragment implements View.OnClickListener, GoogleApiC
                                         response.toString());
                                 try {
                                     id = object.getString("id");
+                                    fb_username=object.getString("name");
+                                    fb_email=object.getString("email");
                                     try {
                                         URL profile_pic = new URL(
                                                 "http://graph.facebook.com/" + id + "/picture?type=large");
-                                        Log.i("profile_pic",
-                                                profile_pic + "");
+                                        Log.d("profile_pic",
+                                                profile_pic + "" +  " " +fb_email + " " + fb_username);
 
                                     } catch (MalformedURLException e) {
                                         e.printStackTrace();

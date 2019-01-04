@@ -241,6 +241,8 @@ public class MainActivity extends AppCompatActivity
 
             SignIn.mGoogleSignInClient.signOut();
             Intent i = new Intent(this, LoginViewPager.class);
+            SignUp.signup_name="";
+            SignUp.signup_email="";
             startActivity(i);
             finish();
 

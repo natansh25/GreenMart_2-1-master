@@ -18,7 +18,6 @@ public class TrialAc extends AppCompatActivity {
 
 //Product list page
 //
-//-          Need to have filter on top
 //
 //
 //
